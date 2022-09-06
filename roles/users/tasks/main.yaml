@@ -1,0 +1,23 @@
+- name: Create user 'juri'
+  ansible.builtin.user:
+    name: juri
+    comment: Juri Hudolejev
+    group: admin
+
+- name: Create user 'roman'
+  ansible.builtin.user:
+    name: roman
+    comment: Roman Kuchin
+    group: admin
+
+- name: Set authorized key from url for user 'juri'
+  ansible.posix.authorized_key:
+    user: juri
+    state: present
+    key: https://github.com/hudolejev.keys
+
+- name: Set authorized key from url for user 'roman'
+  ansible.posix.authorized_key:
+    user: roman
+    state: present
+    key: https://github.com/romankuchin.keys
