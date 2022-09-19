@@ -1,7 +1,8 @@
 ---
-  - name: Web server
+  - name: Deploy basic application
     hosts: web_servers
     become: yes
     roles:
-      - users
+      - agama
+      - uwsgi
       - nginx
