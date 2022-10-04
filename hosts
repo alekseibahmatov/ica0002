@@ -1,8 +1,11 @@
-elvis-1 ansible_host=193.40.156.67 ansible_port=18322 ansible_ssh_user=ubuntu
-elvis-2 ansible_host=193.40.156.67 ansible_port=31022 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=9022 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=38222 ansible_ssh_user=ubuntu
 
 [db_servers]
-elvis-2
+alekseibahmatov-2
+
+[dns_server]
+alekseibahmatov-1
 
 [web_servers]
-elvis-1
+alekseibahmatov-1
