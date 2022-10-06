@@ -9,7 +9,6 @@
     dest: /etc/nginx/sites-enabled/default
   notify: Restart nginx
 
-
 - name: Enable and start nginx service
   ansible.builtin.service:
     name: nginx

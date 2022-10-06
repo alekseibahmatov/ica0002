@@ -4,6 +4,7 @@
     become: yes
     roles:
       - init
+      - node_exporter
 
   - name: DNS server
     hosts: dns_server
@@ -16,7 +17,9 @@
     hosts: db_servers
     become: yes
     roles:
+      - nginx
       - mysql
+      - prometheus
 
   - name: Web server
     hosts: web_servers

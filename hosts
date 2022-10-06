@@ -1,5 +1,5 @@
-alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=9022 ansible_ssh_user=ubuntu
-alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=38222 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=17722 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=27522 ansible_ssh_user=ubuntu
 
 [db_servers]
 alekseibahmatov-2
