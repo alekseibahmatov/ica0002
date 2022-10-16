@@ -10,8 +10,8 @@
 
 - name: Copy dashboard
   ansible.builtin.copy:
-    src: dashboard.json
-    dest: /var/lib/grafana/dashboard.json
+    src: main.json
+    dest: /var/lib/grafana/main.json
 
 - name: Import Grafana dashboard
   community.grafana.grafana_dashboard:
@@ -21,4 +21,4 @@
     state: present
     commit_message: Init by ansible
     overwrite: yes
-    path: /var/lib/grafana/dashboard.json
+    path: /var/lib/grafana/main.json
