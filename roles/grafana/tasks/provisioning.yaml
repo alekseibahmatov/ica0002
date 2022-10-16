@@ -1,0 +1,24 @@
+- name: Create prometheus datasource
+  community.grafana.grafana_datasource:
+    name: Prometheus
+    ds_type: prometheus
+    ds_url: "http://alekseibahmatov-2:9090/prometheus"
+    grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
+    grafana_user: admin
+    grafana_password: "{{ grafana_password }}"
+    is_default: true
+
+- name: Copy dashboard
+  ansible.builtin.copy:
+    src: dashboard.json
+    dest: /var/lib/grafana/dashboard.json
+
+- name: Import Grafana dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
+    grafana_user: admin
+    grafana_password: "{{ grafana_password }}"
+    state: present
+    commit_message: Init by ansible
+    overwrite: yes
+    path: /var/lib/grafana/dashboard.json

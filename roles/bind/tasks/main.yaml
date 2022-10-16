@@ -26,8 +26,3 @@
     src: db.torchify.io.j2
     dest: /var/lib/bind/db.torchify.io
   notify: Restart bind9
-
-- name: Copy resolv.conf
-  ansible.builtin.template:
-    src: resolv.conf.j2
-    dest: /etc/resolv.conf

@@ -12,6 +12,7 @@
     gather_facts: no
     roles:
       - bind
+      - bind_exporter
 
   - name: Database server
     hosts: db_servers
@@ -20,6 +21,8 @@
       - nginx
       - mysql
       - prometheus
+      - mysql_exporter
+      - nginx_exporter
 
   - name: Web server
     hosts: web_servers
@@ -29,3 +32,10 @@
       - agama
       - uwsgi
       - nginx
+      - nginx_exporter
+
+  - name: Grafana
+    hosts: grafana
+    become: yes
+    roles:
+      - grafana

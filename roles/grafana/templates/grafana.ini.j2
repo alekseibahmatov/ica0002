@@ -1,0 +1,7 @@
+[server]
+root_url = http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/
+serve_from_sub_path = true
+
+[security]
+admin_user = admin
+admin_password = {{ grafana_password }}

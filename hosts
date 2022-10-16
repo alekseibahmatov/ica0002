@@ -1,11 +1,17 @@
-alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=17722 ansible_ssh_user=ubuntu
-alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=27522 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=4022 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=39722 ansible_ssh_user=ubuntu
+
+[prometheus]
+alekseibahmatov-2
+
+[grafana]
+alekseibahmatov-1
 
 [db_servers]
 alekseibahmatov-2
 
 [dns_server]
-alekseibahmatov-1
+alekseibahmatov-2
 
 [web_servers]
 alekseibahmatov-1

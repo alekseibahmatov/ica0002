@@ -4,8 +4,8 @@
     state: latest
 
 - name: Change config file
-  ansible.builtin.copy:
-    src: default
+  ansible.builtin.template:
+    src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify: Restart nginx
 
@@ -14,3 +14,8 @@
     name: nginx
     state: started
     enabled: yes
+
+- name: Copy resolv.conf
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf

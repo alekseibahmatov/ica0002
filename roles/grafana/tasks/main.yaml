@@ -1,0 +1,37 @@
+- name: Install prerequisites
+  ansible.builtin.apt:
+    name: software-properties-common
+    state: latest
+
+- name: Add Grafana repo on server step 1
+  ansible.builtin.shell: wget -q -O /usr/share/keyrings/grafana.key https://packages.grafana.com/gpg.key
+  args:
+    warn: no
+
+- name: Add Grafana repo on server step 2
+  ansible.builtin.shell: echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+  args:
+    warn: no
+
+- name: Install Grafana
+  ansible.builtin.apt:
+    name: grafana
+    state: latest
+    update_cache: yes
+
+- name: Copy grafana config
+  ansible.builtin.template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+  notify: Restart grafana
+
+- name: Start end enable grafana
+  ansible.builtin.service:
+    name: grafana-server
+    state: started
+    enabled: yes
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  ansible.builtin.meta: flush_handlers
+
+- include_tasks: provisioning.yaml

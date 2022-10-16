@@ -3,7 +3,13 @@
     name: prometheus
     state: latest
 
-- name: Change default file
+- name: Start and enable prometheus
+  ansible.builtin.service:
+    name: prometheus
+    state: started
+    enabled: yes
+
+- name: Change prometheus file
   ansible.builtin.template:
     src: prometheus.j2
     dest: /etc/default/prometheus
