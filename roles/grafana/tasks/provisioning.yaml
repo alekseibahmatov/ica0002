@@ -1,3 +1,8 @@
+- name: Wait for port 3000 to become open on the host
+  ansible.builtin.wait_for:
+    port: 3000
+    delay: 10
+
 - name: Create prometheus datasource
   community.grafana.grafana_datasource:
     name: Prometheus

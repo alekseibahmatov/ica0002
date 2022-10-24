@@ -1,0 +1,5 @@
+- name: Install fping
+  ansible.builtin.apt:
+    name: fping
+    state: latest
+
