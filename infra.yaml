@@ -24,6 +24,12 @@
       - mysql_exporter
       - nginx_exporter
 
+  - name: InfluxDB
+    hosts: influxdb
+    become: yes
+    roles:
+      - influxdb
+
   - name: Web server
     hosts: web_servers
     become: yes
@@ -33,6 +39,7 @@
       - uwsgi
       - nginx
       - nginx_exporter
+      - pinger
 
   - name: Grafana
     hosts: grafana

@@ -3,3 +3,33 @@
     name: fping
     state: latest
 
+- name: Create user 'pinger'
+  ansible.builtin.user:
+    name: pinger
+    comment: User that used to run pinger service
+    group: admin
+
+- name: Create directory for pinger
+  ansible.builtin.file:
+    path: /usr/local/bin/pinger
+    state: directory
+    mode: '0755'
+
+- name: Copy pinger service file
+  ansible.builtin.copy:
+    src: pinger.service
+    dest: /etc/systemd/system/pinger.service
+    owner: pinger
+  notify: Restart pinger
+
+- name: Copy pinger file
+  ansible.builtin.copy:
+    src: pinger.sh
+    dest: /usr/local/bin/pinger/pinger.sh
+    owner: pinger
+
+- name: Copy pinger config
+  ansible.builtin.template:
+    src: pinger.conf.j2
+    dest: /usr/local/bin/pinger/pinger.conf
+    owner: pinger

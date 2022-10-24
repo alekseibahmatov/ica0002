@@ -1,5 +1,5 @@
-alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=1322 ansible_ssh_user=ubuntu
-alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=38922 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=7022 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=36822 ansible_ssh_user=ubuntu
 
 [prometheus]
 alekseibahmatov-2
@@ -15,3 +15,6 @@ alekseibahmatov-2
 
 [web_servers]
 alekseibahmatov-1
+
+[influxdb]
+alekseibahmatov-2
