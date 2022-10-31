@@ -2,3 +2,39 @@
   ansible.builtin.apt:
     deb: https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb
 
+- name: Copy influxdb config
+  ansible.builtin.copy:
+    src: influxdb.conf
+    dest: /etc/influxdb/influxdb.conf
+  notify: Restart influxdb
+
+- name: Start and enable influxdb
+  ansible.builtin.service:
+    name: influxdb
+    state: started
+    enabled: yes
+
+- name: Install telegraf key
+  ansible.builtin.apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: Install telegraf repository
+  ansible.builtin.apt_repository:
+    repo: deb https://repos.influxdata.com/debian stable main
+
+- name: Install telegraf
+  ansible.builtin.apt:
+    name: telegraf
+    state: latest
+
+- name: Copy telegraf config
+  ansible.builtin.copy:
+    src: telegraf.conf
+    dest: /etc/telegraf/telegraf.conf
+  notify: Restart telegraf
+
+- name: Start and enable telegraf
+  ansible.builtin.service:
+    name: telegraf
+    state: started
+    enabled: yes

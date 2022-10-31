@@ -1,5 +1,5 @@
-alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=7022 ansible_ssh_user=ubuntu
-alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=36822 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=18522 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=43622 ansible_ssh_user=ubuntu
 
 [prometheus]
 alekseibahmatov-2

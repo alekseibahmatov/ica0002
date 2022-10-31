@@ -13,23 +13,31 @@
   ansible.builtin.file:
     path: /usr/local/bin/pinger
     state: directory
-    mode: '0755'
+    mode: '0777'
+    owner: pinger
 
-- name: Copy pinger service file
+- name: Copy pinger service files
   ansible.builtin.copy:
     src: pinger.service
     dest: /etc/systemd/system/pinger.service
     owner: pinger
   notify: Restart pinger
 
-- name: Copy pinger file
+- name: Copy pinger files
   ansible.builtin.copy:
     src: pinger.sh
     dest: /usr/local/bin/pinger/pinger.sh
+    mode: '0777'
     owner: pinger
+
+- name: Create directory for pinger
+  ansible.builtin.file:
+    path: /etc/pinger
+    state: directory
+    mode: '0755'
 
 - name: Copy pinger config
   ansible.builtin.template:
     src: pinger.conf.j2
-    dest: /usr/local/bin/pinger/pinger.conf
+    dest: /etc/pinger/pinger.conf
     owner: pinger

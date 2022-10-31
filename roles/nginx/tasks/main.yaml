@@ -3,7 +3,7 @@
     name: nginx-full
     state: latest
 
-- name: Change config file
+- name: Change config files
   ansible.builtin.template:
     src: default.j2
     dest: /etc/nginx/sites-enabled/default

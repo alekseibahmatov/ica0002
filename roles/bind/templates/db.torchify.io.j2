@@ -1,15 +1,16 @@
 $TTL	604800
-torchify.io.	IN	SOA	vm1.torchify.io. aleksei.torchify.io. (
+{{ domain }}.	IN	SOA	vm1.{{ domain }}. aleksei.{{ domain }}. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
 ;
-torchify.io.	IN	NS	alekseibahmatov-1
+{{ domain }}.	IN	NS	alekseibahmatov-1
 {% for vm in groups['all'] %}
 {{ vm }}	IN	A	{{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
 {% for db in groups['db_servers'] %}
 db	IN	A	{{ hostvars[db]['ansible_default_ipv4']['address'] }}
 {% endfor %}
+backup IN A {{ backup_server_ip }}

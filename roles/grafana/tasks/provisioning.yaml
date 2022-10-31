@@ -13,10 +13,25 @@
     grafana_password: "{{ grafana_password }}"
     is_default: true
 
+- name: Create influxdb datasource pinger
+  community.grafana.grafana_datasource:
+    name: Influxdb pinger
+    ds_type: influxdb
+    ds_url: "http://alekseibahmatov-2:8086"
+    database: latency
+    grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
+    grafana_user: admin
+    grafana_password: "{{ grafana_password }}"
+
 - name: Copy dashboard
   ansible.builtin.copy:
     src: main.json
     dest: /var/lib/grafana/main.json
+
+- name: Copy dashboard
+  ansible.builtin.copy:
+    src: rsyslog.json
+    dest: /var/lib/grafana/rsyslog.json
 
 - name: Import Grafana dashboard
   community.grafana.grafana_dashboard:
@@ -27,3 +42,23 @@
     commit_message: Init by ansible
     overwrite: yes
     path: /var/lib/grafana/main.json
+
+- name: Create influxdb datasource telegraf
+  community.grafana.grafana_datasource:
+    name: Influxdb telegraf
+    ds_type: influxdb
+    ds_url: "http://alekseibahmatov-2:8086"
+    grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
+    database: telegraf
+    grafana_user: admin
+    grafana_password: "{{ grafana_password }}"
+
+- name: Import Grafana dashboard rsyslog
+  community.grafana.grafana_dashboard:
+    grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
+    grafana_user: admin
+    grafana_password: "{{ grafana_password }}"
+    state: present
+    commit_message: Init by ansible
+    overwrite: yes
+    path: /var/lib/grafana/rsyslog.json

@@ -9,13 +9,13 @@
     state: started
     enabled: yes
 
-- name: Change prometheus file
+- name: Change prometheus files
   ansible.builtin.template:
     src: prometheus.j2
     dest: /etc/default/prometheus
   notify: Restart prometheus
 
-- name: Change config file
+- name: Change config files
   ansible.builtin.template:
     src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
