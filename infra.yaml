@@ -25,6 +25,7 @@
       - prometheus
       - mysql_exporter
       - nginx_exporter
+      - mysql_backup
 
   - name: InfluxDB
     hosts: influxdb
@@ -32,6 +33,7 @@
     roles:
       - influxdb
       - influxdb_exporter
+      - influxdb_backup
 
   - name: Web server
     hosts: web_servers

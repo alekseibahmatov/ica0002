@@ -1,0 +1,2 @@
+0 */3 * * * backup influxd backup -portable /home/backup/influxdb && duplicity --no-encryption full /home/backup/influxdb/ rsync://alekseibahmatov@backup.torchify.io/influxdb
+*/30 * * * * backup influxd backup -portable /home/backup/influxdb && duplicity --no-encryption incremental /home/backup/influxdb/ rsync://alekseibahmatov@backup.torchify.io/influxdb

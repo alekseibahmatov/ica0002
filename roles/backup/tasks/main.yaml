@@ -19,3 +19,14 @@
     dest: /home/backup/.ssh/known_hosts
     owner: backup
     group: backup
+
+- name: Create restore folder
+  ansible.builtin.file:
+    path: /home/backup/restore
+    state: directory
+    owner: backup
+
+- name: Duplicity install
+  ansible.builtin.apt:
+    name: duplicity
+    state: latest

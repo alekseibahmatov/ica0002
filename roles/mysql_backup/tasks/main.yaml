@@ -1,0 +1,25 @@
+- name: Create folder for mysql backups
+  ansible.builtin.file:
+    path: /home/backup/mysql
+    state: directory
+    owner: backup
+
+- name: Create MySql backup user
+  community.mysql.mysql_user:
+    name: backup
+    password: "{{ mysql_backup_password }}"
+    host: "%"
+    priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Copy my.cnf to home backup
+  ansible.builtin.template:
+    src: .my.cnf.j2
+    dest: /home/backup/.my.cnf
+  notify: Restart mysql
+  no_log: yes
+
+- name: Create mysql backup cron
+  ansible.builtin.copy:
+    src: backup_mysql
+    dest: /etc/cron.d/backup_mysql

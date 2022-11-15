@@ -1,0 +1,10 @@
+- name: Create inbfluxdb folder
+  ansible.builtin.file:
+    path: /home/backup/influxdb
+    state: directory
+    owner: backup
+
+- name: Copy influxdb cron file
+  ansible.builtin.copy:
+    src: influxdb_backup
+    dest: /etc/cron.d/influxdb_backup
