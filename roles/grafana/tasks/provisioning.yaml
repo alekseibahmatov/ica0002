@@ -33,6 +33,11 @@
     src: rsyslog.json
     dest: /var/lib/grafana/rsyslog.json
 
+- name: Copy dashboard
+  ansible.builtin.copy:
+    src: mysql.json
+    dest: /var/lib/grafana/mysql.json
+
 - name: Import Grafana dashboard
   community.grafana.grafana_dashboard:
     grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
@@ -62,3 +67,13 @@
     commit_message: Init by ansible
     overwrite: yes
     path: /var/lib/grafana/rsyslog.json
+
+- name: Import Grafana dashboard mysql
+  community.grafana.grafana_dashboard:
+    grafana_url: "http://{{ hostvars['alekseibahmatov-1'].ansible_host }}:{{ hostvars['alekseibahmatov-1'].ansible_port + 58 }}/grafana/"
+    grafana_user: admin
+    grafana_password: "{{ grafana_password }}"
+    state: present
+    commit_message: Init by ansible
+    overwrite: yes
+    path: /var/lib/grafana/mysql.json

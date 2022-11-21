@@ -7,6 +7,7 @@
       - node_exporter
       - rsyslog
       - backup
+    tags: a
 
   - name: DNS server
     hosts: dns_server
@@ -15,17 +16,25 @@
     roles:
       - bind
       - bind_exporter
+    tags: dns
+
+  - name: Prometheus
+    hosts: prometheus
+    become: yes
+    roles:
+      - nginx
+      - prometheus
+      - nginx_exporter
+    tags: pr
 
   - name: Database server
     hosts: db_servers
     become: yes
     roles:
-      - nginx
       - mysql
-      - prometheus
       - mysql_exporter
-      - nginx_exporter
       - mysql_backup
+    tags: db
 
   - name: InfluxDB
     hosts: influxdb
@@ -34,6 +43,7 @@
       - influxdb
       - influxdb_exporter
       - influxdb_backup
+    tags: inf
 
   - name: Web server
     hosts: web_servers
@@ -45,9 +55,11 @@
       - nginx
       - nginx_exporter
       - pinger
+    tags: web
 
   - name: Grafana
     hosts: grafana
     become: yes
     roles:
       - grafana
+    tags: g

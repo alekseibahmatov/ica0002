@@ -9,6 +9,12 @@
     dest: /var/lib/prometheus/.my.cnf
   notify: Restart mysqld exporter
 
+- name: Copy prometheus-mysqld-exporter
+  ansible.builtin.copy:
+    src: prometheus-mysqld-exporter
+    dest: /etc/default/prometheus-mysqld-exporter
+  notify: Restart mysqld exporter
+
 - name: Enable mysql exporter
   ansible.builtin.service:
     name: prometheus-mysqld-exporter
