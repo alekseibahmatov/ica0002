@@ -3,6 +3,10 @@ acl lan {
 	{{ ip }};
 {% endfor %}
 };
+
+acl docker {
+    172.17.0.1;
+};
 options {
 
 	directory "/var/lib/bind";
@@ -15,6 +19,7 @@ options {
 	
 	allow-query {
 		lan;
+		docker;
 	};
 
 	dnssec-validation no;

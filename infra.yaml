@@ -45,13 +45,27 @@
       - influxdb_backup
     tags: inf
 
+  - name: Agama
+    hosts: agama
+    become: yes
+    roles:
+      - docker
+      - agama
+    tags: aga
+
+  - name: Keepalived
+    hosts: keepalived
+    become: yes
+    roles:
+      - keepalived
+      - haproxy
+    tags: ka
+
   - name: Web server
     hosts: web_servers
     become: yes
     gather_facts: no
     roles:
-      - agama
-      - uwsgi
       - nginx
       - nginx_exporter
       - pinger
@@ -61,5 +75,6 @@
     hosts: grafana
     become: yes
     roles:
+      - docker
       - grafana
     tags: g

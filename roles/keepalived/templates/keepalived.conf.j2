@@ -1,0 +1,29 @@
+vrrp_script check_haproxy {
+    script "/home/keepalived_script/script.sh"
+    weight 20
+    interval 1
+}
+
+vrrp_instance XXX {
+    interface ens3
+    virtual_router_id {{ router_id }}
+    priority {{ 1 if inventory_hostname == 'alekseibahmatov-1' else 0 }}
+    advert_int 1
+    virtual_ipaddress {
+        {% set ip_address = hostvars['alekseibahmatov-1']['ansible_default_ipv4']['address'].split('.') %}
+
+        {{ ip_address[0] }}.{{ ip_address[1] }}.{{ 100 if ip_address[2] == 42 else 101 }}.{{ ip_address[3] }}/24
+    }
+    unicast_peer {
+        {% if inventory_hostname == 'alekseibahmatov-1' %}
+            {{ hostvars['alekseibahmatov-2']['ansible_default_ipv4']['address'] }}
+        {% endif %}
+
+        {% if inventory_hostname == 'alekseibahmatov-2' %}
+            {{ hostvars['alekseibahmatov-1']['ansible_default_ipv4']['address'] }}
+        {% endif %}
+    }
+    track_script {
+        check_haproxy
+    }
+}

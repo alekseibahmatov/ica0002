@@ -1,0 +1,28 @@
+apiVersion: 1
+
+datasources:
+- name: Prometheus
+  type: prometheus
+  orgId: 1
+  url: http://alekseibahmatov-2:9090/prometheus
+  isDefault: true
+  version: 1
+  editable: false
+
+- name: Influxdb pinger
+  type: influxdb
+  orgId: 1
+  url: http://alekseibahmatov-2:8086
+  database: latency
+  isDefault: false
+  version: 1
+  editable: false
+
+- name: Influxdb telegraf
+  type: influxdb
+  orgId: 1
+  url: http://alekseibahmatov-2:8086
+  database: telegraf
+  isDefault: false
+  version: 1
+  editable: false

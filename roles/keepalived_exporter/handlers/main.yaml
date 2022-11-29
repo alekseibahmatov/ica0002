@@ -1,0 +1,4 @@
+- name: Restart keepalived exporter
+  ansible.builtin.service:
+    name: prometheus-keepalived-exporter
+    state: restarted

@@ -1,6 +1,6 @@
 domain: torchify.io
 
-mysql_host: alekseibahmatov-1
+mysql_host: alekseibahmatov-2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -51,6 +51,9 @@ mysql_replication_password: !vault |
           6330333463373666380a353666653733316337343865616130386139623431383066663962643735
           6539
 
+grafana_port: 3001
+agama_port: 8001
+
 grafana_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           64313963356263356461383137616466666165393837306466616331313931323238613165333932
@@ -60,3 +63,5 @@ grafana_password: !vault |
           3963
 
 node_id: "{{ (ansible_port / 100) | int }}"
+
+router_id: 123

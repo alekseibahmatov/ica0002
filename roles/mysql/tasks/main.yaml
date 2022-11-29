@@ -27,8 +27,8 @@
 
 - name: MySQL user
   community.mysql.mysql_user:
-    name: "{{ mysql_replication_user }}"
-    password: "{{ mysql_replication_password }}"
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
@@ -38,8 +38,8 @@
 
 - name: MySQL replication user
   community.mysql.mysql_user:
-    name: "{{ mysql_user }}"
-    password: "{{ mysql_password }}"
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_password }}"
     host: "%"
     priv: "*.*:REPLICATION SLAVE"
     login_unix_socket: /var/run/mysqld/mysqld.sock
