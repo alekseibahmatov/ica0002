@@ -9,17 +9,6 @@
     dest: /etc/keepalived/keepalived.conf
   notify: Restart keepalived
 
-- name: Install keepalived
-  ansible.builtin.apt:
-    name: keepalived
-    state: latest
-
-- name: Start and enable keepalived
-  ansible.builtin.service:
-    name: keepalived
-    state: started
-    enabled: yes
-
 - name: Create user 'keepalived_script'
   ansible.builtin.user:
     name: keepalived_script
@@ -30,3 +19,14 @@
     dest: /home/keepalived_script/script.sh
     owner: keepalived_script
     mode: '0755'
+
+- name: Install keepalived
+  ansible.builtin.apt:
+    name: keepalived
+    state: latest
+
+- name: Start and enable keepalived
+  ansible.builtin.service:
+    name: keepalived
+    state: started
+    enabled: yes

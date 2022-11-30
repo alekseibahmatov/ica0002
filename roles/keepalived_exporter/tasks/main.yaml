@@ -1,12 +1,15 @@
-- name: Install keepalived exporter
-  ansible.builtin.get_url:
-    url: http://backup/keepalived-exporter-1.2.0.linux-amd64.tar.gz
-    dest: /tmp/keepalived-exporter.tar.gz
-
 - name: Unpack keepalived exporter
   ansible.builtin.unarchive:
-    src: /tmp/keepalived-exporter.tar.gz
-    dest: /usr/local/bin
+    src: http://{{ backup_server_ip }}/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy keepalived
+  ansible.builtin.copy:
+    remote_src: yes
+    src: /tmp/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
+    dest: /usr/local/bin/keepalived-exporter
+    mode: '0755'
 
 - name: Copy keepalived exporter service file
   ansible.builtin.copy:

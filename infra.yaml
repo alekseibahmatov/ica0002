@@ -45,22 +45,6 @@
       - influxdb_backup
     tags: inf
 
-  - name: Agama
-    hosts: agama
-    become: yes
-    roles:
-      - docker
-      - agama
-    tags: aga
-
-  - name: Keepalived
-    hosts: keepalived
-    become: yes
-    roles:
-      - keepalived
-      - haproxy
-    tags: ka
-
   - name: Web server
     hosts: web_servers
     become: yes
@@ -70,6 +54,24 @@
       - nginx_exporter
       - pinger
     tags: web
+
+  - name: Keepalived
+    hosts: keepalived
+    become: yes
+    roles:
+      - keepalived
+      - haproxy
+      - keepalived_exporter
+      - haproxy_exporter
+    tags: ka
+
+  - name: Agama
+    hosts: agama
+    become: yes
+    roles:
+      - docker
+      - agama
+    tags: aga
 
   - name: Grafana
     hosts: grafana
