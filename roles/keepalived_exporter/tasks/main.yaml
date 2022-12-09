@@ -20,7 +20,7 @@
 - name: Copy keepalived exporter config file
   ansible.builtin.template:
     src: keepalived-exporter.j2
-    dest: /etc/default/keepalived-exporter.service
+    dest: /etc/default/keepalived-exporter
   notify: Restart keepalived exporter
 
 - name: Enable keepalived exporter
