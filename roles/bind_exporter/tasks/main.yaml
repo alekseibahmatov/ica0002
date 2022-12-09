@@ -3,6 +3,11 @@
     name: prometheus-bind-exporter
     state: latest
 
+- name: Copy bind config
+  ansible.builtin.template:
+    src: prometheus-bind-exporter.j2
+    dest: /etc/default/prometheus-bind-exporter
+
 - name: Start and enable bind exporter
   ansible.builtin.service:
     name: prometheus-bind-exporter

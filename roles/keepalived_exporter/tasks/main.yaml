@@ -16,3 +16,16 @@
     src: prometheus-keepalived-exporter.service
     dest: /etc/systemd/system/prometheus-keepalived-exporter.service
   notify: Restart keepalived exporter
+
+- name: Copy keepalived exporter config file
+  ansible.builtin.template:
+    src: keepalived-exporter.j2
+    dest: /etc/default/keepalived-exporter.service
+  notify: Restart keepalived exporter
+
+- name: Enable keepalived exporter
+  ansible.builtin.service:
+    name: prometheus-keepalived-exporter
+    state: started
+    enabled: yes
+    daemon_reload: yes

@@ -1,6 +1,8 @@
 - name: Setup bind9
   ansible.builtin.apt:
-    name: bind9
+    name:
+      - bind9
+      - python3-dnspython
     state: latest
 
 - name: Start and enable bind9 service
@@ -21,8 +23,52 @@
     dest: /etc/bind/named.conf.local
   notify: Restart bind9
 
+- name: Copy resolv.conf
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+
 - name: Copy db.torchify.io
   ansible.builtin.template:
     src: db.torchify.io.j2
     dest: /var/lib/bind/db.torchify.io
+    force: false
   notify: Restart bind9
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Copy db.rev
+  ansible.builtin.template:
+    src: db.rev.j2
+    dest: /var/lib/bind/db.rev
+    force: false
+  notify: Restart bind9
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  ansible.builtin.meta: flush_handlers
+
+- name: Add A records to master DNS server
+  community.general.nsupdate:
+    key_name: "dns_update_key"
+    key_secret: "{{ dns_update_secret }}"
+    key_algorithm: "hmac-sha256"
+    server: "localhost"
+    zone: "torchify.io"
+    record: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop: "{{ dns_a_records | dict2items }}"
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Add CNAME records to master DNS server
+  community.general.nsupdate:
+    key_name: "dns_update_key"
+    key_secret: "{{ dns_update_secret }}"
+    key_algorithm: "hmac-sha256"
+    server: "localhost"
+    zone: "torchify.io"
+    record: "{{ item.key }}"
+    value: "{{ item.value }}"
+    type: "CNAME"
+  loop: "{{ dns_cname_records | dict2items }}"
+  when: inventory_hostname in groups['dns_masters']
+

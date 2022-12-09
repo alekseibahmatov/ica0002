@@ -1,6 +1,8 @@
 - name: Install mysql server
   ansible.builtin.apt:
-    name: mysql-server
+    name:
+      - mysql-server
+      - python3-pymysql
     state: latest
 
 - name: Copy mysql config
@@ -14,11 +16,6 @@
     name: mysql
     state: started
     enabled: yes
-
-- name: Install PyMySQL
-  ansible.builtin.apt:
-    name: python3-pymysql
-    state: latest
 
 - name: MySQL database
   community.mysql.mysql_db:

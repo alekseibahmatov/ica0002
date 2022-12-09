@@ -41,3 +41,10 @@
     src: pinger.conf.j2
     dest: /etc/pinger/pinger.conf
     owner: pinger
+
+- name: Enable pinger
+  ansible.builtin.service:
+    name: pinger
+    state: started
+    enabled: yes
+    reload_daemon: yes

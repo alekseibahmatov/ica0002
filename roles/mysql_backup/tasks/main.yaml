@@ -20,6 +20,6 @@
   no_log: yes
 
 - name: Create mysql backup cron
-  ansible.builtin.copy:
-    src: backup_mysql
+  ansible.builtin.template:
+    src: backup_mysql.j2
     dest: /etc/cron.d/backup_mysql

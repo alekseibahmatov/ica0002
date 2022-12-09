@@ -10,6 +10,13 @@
     src: prometheus-influxdb-stats-exporter.service
     dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
     owner: prometheus
+  notify: Restart influxdb exporter
+
+- name: Copy bind config
+  ansible.builtin.template:
+    src: prometheus-influxdb-stats-exporter.j2
+    dest: /etc/default/prometheus-influxdb-stats-exporter
+  notify: Restart influxdb exporter
 
 - name: Start and enable influxdb stats exporter
   ansible.builtin.service:

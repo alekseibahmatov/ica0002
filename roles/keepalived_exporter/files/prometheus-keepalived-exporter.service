@@ -5,7 +5,8 @@ After=network-online.target
 
 [Service]
 User=root
-ExecStart=/usr/local/bin/keepalived-exporter
+EnvironmentFile=/etc/default/keepalived-exporter
+ExecStart=/usr/local/bin/keepalived-exporter $ARGS
 
 [Install]
 WantedBy=multi-user.target

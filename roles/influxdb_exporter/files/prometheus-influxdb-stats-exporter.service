@@ -5,7 +5,8 @@ After=network-online.target
 
 [Service]
 User=prometheus
-ExecStart=/usr/local/bin/prometheus-influxdb-stats-exporter
+EnvironmentFile=/etc/default/prometheus-influxdb-stats-exporter
+ExecStart=/usr/local/bin/prometheus-influxdb-stats-exporter $ARGS
 
 [Install]
 WantedBy=multi-user.target

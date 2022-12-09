@@ -1,0 +1,4 @@
+- name: Restart influxdb exporter
+  ansible.builtin.service:
+    name: prometheus-influxdb-stats-exporter
+    state: restarted

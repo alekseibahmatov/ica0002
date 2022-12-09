@@ -2,3 +2,15 @@
   ansible.builtin.apt:
     name: prometheus-node-exporter
     state: latest
+
+- name: prometheus-node-exporter config
+  ansible.builtin.template:
+    src: prometheus-node-exporter.j2
+    dest: /etc/default/prometheus-node-exporter
+  notify: Restart node exporter
+
+- name: Enable node exporter
+  ansible.builtin.service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes

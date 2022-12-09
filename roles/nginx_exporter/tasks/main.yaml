@@ -3,6 +3,12 @@
     name: prometheus-nginx-exporter
     state: latest
 
+- name: Copy nginx exporter config
+  ansible.builtin.template:
+    src: prometheus-nginx-exporter.j2
+    dest: /etc/default/prometheus-nginx-exporter
+  notify: Restart nginx exporter
+
 - name: Start and enable nginx exporter
   ansible.builtin.service:
     name: prometheus-nginx-exporter
