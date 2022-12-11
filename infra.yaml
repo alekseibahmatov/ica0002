@@ -6,13 +6,18 @@
       - init
       - node_exporter
       - rsyslog
-      - backup
     tags: a
+
+  - name: Application stack
+    hosts: application_stack
+    become: yes
+    roles:
+      - backup
+    tags: as
 
   - name: DNS server
     hosts: dns_server
     become: yes
-    gather_facts: yes
     roles:
       - bind
       - bind_exporter
@@ -52,8 +57,14 @@
     roles:
       - nginx
       - nginx_exporter
-      - pinger
     tags: web
+
+  - name: Internal services
+    hosts: internal_services
+    become: yes
+    roles:
+      - pinger
+    tags: ping
 
   - name: Keepalived
     hosts: keepalived

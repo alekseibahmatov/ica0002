@@ -4,25 +4,27 @@ datasources:
 - name: Prometheus
   type: prometheus
   orgId: 1
-  url: http://alekseibahmatov-2:9090/prometheus
+  url: http://{{ groups['internal_services'][0] }}:9090/prometheus
   isDefault: true
   version: 1
-  editable: false
+  editable: true
 
 - name: Influxdb pinger
   type: influxdb
   orgId: 1
-  url: http://alekseibahmatov-2:8086
+  url: http://{{ groups['internal_services'][0] }}:8086
   database: latency
+  httpMode: 'POST'
   isDefault: false
   version: 1
-  editable: false
+  editable: true
 
 - name: Influxdb telegraf
   type: influxdb
   orgId: 1
-  url: http://alekseibahmatov-2:8086
+  url: http://{{ groups['internal_services'][0] }}:8086
   database: telegraf
+  httpMode: 'POST'
   isDefault: false
   version: 1
-  editable: false
+  editable: true

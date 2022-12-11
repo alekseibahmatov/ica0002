@@ -1,39 +1,41 @@
-alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=41822 ansible_ssh_user=ubuntu
-alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=27322 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=28722 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=29322 ansible_ssh_user=ubuntu
+alekseibahmatov-3 ansible_host=193.40.156.67 ansible_port=32922 ansible_ssh_user=ubuntu
+
+[internal_services]
+alekseibahmatov-3
+
+[application_stack]
+alekseibahmatov-1
+alekseibahmatov-2
 
 [prometheus]
-alekseibahmatov-2
+alekseibahmatov-3
 
 [grafana]
-alekseibahmatov-1
+alekseibahmatov-3
 
-[prometheus]
-alekseibahmatov-2
+[db_servers:children]
+application_stack
 
-[db_servers]
-alekseibahmatov-1
-alekseibahmatov-2
-
-[dns_slaves]
-alekseibahmatov-1
+[dns_slaves:children]
+application_stack
 
 [dns_masters]
-alekseibahmatov-2
+alekseibahmatov-3
 
 [dns_server:children]
 dns_slaves
 dns_masters
 
-[keepalived]
-alekseibahmatov-1
-alekseibahmatov-2
+[keepalived:children]
+application_stack
 
-[agama]
-alekseibahmatov-1
-alekseibahmatov-2
+[agama:children]
+application_stack
 
-[web_servers]
-alekseibahmatov-1
+[web_servers:children]
+application_stack
 
 [influxdb]
-alekseibahmatov-2
+alekseibahmatov-3

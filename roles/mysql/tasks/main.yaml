@@ -21,6 +21,9 @@
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
 
 - name: MySQL user
   community.mysql.mysql_user:
@@ -29,9 +32,6 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-  notify:
-    - Reset MySQL source
-    - Reset MySQL replica
 
 - name: MySQL replication user
   community.mysql.mysql_user:

@@ -1,13 +1,19 @@
-- name: Install mysql exporter
-  ansible.builtin.apt:
-    name: prometheus-mysqld-exporter
-    state: latest
+- name: Create prometheus directory
+  ansible.builtin.file:
+    path: /var/lib/prometheus
+    recurse: yes
+    state: directory
 
 - name: Copy my.cnf
   ansible.builtin.template:
     src: my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
   notify: Restart mysqld exporter
+
+- name: Install mysql exporter
+  ansible.builtin.apt:
+    name: prometheus-mysqld-exporter
+    state: latest
 
 - name: Copy prometheus-mysqld-exporter config
   ansible.builtin.template:
