@@ -3,6 +3,14 @@
     path: /home/backup/influxdb
     state: directory
     owner: backup
+    group: backup
+
+- name: Create restore folder
+  ansible.builtin.file:
+    path: /home/backup/restore
+    state: directory
+    owner: backup
+    group: backup
 
 - name: Copy influxdb cron file
   ansible.builtin.copy:

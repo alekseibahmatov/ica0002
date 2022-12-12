@@ -14,7 +14,7 @@ datasources:
   orgId: 1
   url: http://{{ groups['internal_services'][0] }}:8086
   database: latency
-  httpMode: 'POST'
+  httpMethod: 'POST'
   isDefault: false
   version: 1
   editable: true
@@ -24,7 +24,7 @@ datasources:
   orgId: 1
   url: http://{{ groups['internal_services'][0] }}:8086
   database: telegraf
-  httpMode: 'POST'
+  httpMethod: 'POST'
   isDefault: false
   version: 1
   editable: true

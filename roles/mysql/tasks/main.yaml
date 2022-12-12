@@ -17,6 +17,36 @@
     state: started
     enabled: yes
 
+- name: MySQL replication user
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_user }}"
+    password: "{{ mysql_replication_password }}"
+    host: "%"
+    priv: "*.*:REPLICATION SLAVE"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Prometheus MySQL user
+  community.mysql.mysql_user:
+    name: "{{ mysql_exporter_user }}"
+    password: "{{ mysql_exporter_password }}"
+    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  ansible.builtin.meta: flush_handlers
+
+- name: Switch mysql server to readonly
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
+
 - name: MySQL database
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
@@ -32,28 +62,4 @@
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-
-- name: MySQL replication user
-  community.mysql.mysql_user:
-    name: "{{ mysql_replication_user }}"
-    password: "{{ mysql_replication_password }}"
-    host: "%"
-    priv: "*.*:REPLICATION SLAVE"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-
-- name: Prometheus MySQL user
-  community.mysql.mysql_user:
-    name: "{{ mysql_exporter_user }}"
-    password: "{{ mysql_exporter_password }}"
-    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-
-- name: Switch mysql server to readonly
-  community.mysql.mysql_variables:
-    variable: read_only
-    value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
-    mode: persist
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-  notify:
-    - Reset MySQL source
-    - Reset MySQL replica
+  no_log: true

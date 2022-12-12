@@ -1,6 +1,6 @@
-alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=28722 ansible_ssh_user=ubuntu
-alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=29322 ansible_ssh_user=ubuntu
-alekseibahmatov-3 ansible_host=193.40.156.67 ansible_port=32922 ansible_ssh_user=ubuntu
+alekseibahmatov-1 ansible_host=193.40.156.67 ansible_port=39222 ansible_ssh_user=ubuntu
+alekseibahmatov-2 ansible_host=193.40.156.67 ansible_port=34122 ansible_ssh_user=ubuntu
+alekseibahmatov-3 ansible_host=193.40.156.67 ansible_port=41422 ansible_ssh_user=ubuntu
 
 [internal_services]
 alekseibahmatov-3

@@ -56,6 +56,7 @@
     zone: "torchify.io"
     record: "{{ item.key }}"
     value: "{{ item.value }}"
+  no_log: true
   loop: "{{ dns_a_records | dict2items }}"
   when: inventory_hostname in groups['dns_masters']
 
@@ -69,6 +70,7 @@
     record: "{{ item.key }}"
     value: "{{ item.value }}"
     type: "CNAME"
+  no_log: true
   loop: "{{ dns_cname_records | dict2items }}"
   when: inventory_hostname in groups['dns_masters']
 

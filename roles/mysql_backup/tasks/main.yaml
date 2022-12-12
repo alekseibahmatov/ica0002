@@ -3,6 +3,21 @@
     path: /home/backup/mysql
     state: directory
     owner: backup
+    group: backup
+
+- name: Create folder for duplicity cache
+  ansible.builtin.file:
+    path: /home/backup/.cache
+    state: directory
+    owner: backup
+    group: backup
+
+- name: Create folder for restoring
+  ansible.builtin.file:
+    path: /home/backup/restore
+    state: directory
+    owner: backup
+    group: backup
 
 - name: Create MySql backup user
   community.mysql.mysql_user:
@@ -11,6 +26,7 @@
     host: "%"
     priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
 
 - name: Copy my.cnf to home backup
   ansible.builtin.template:
