@@ -109,3 +109,8 @@ nginx_exporter_port: 9113
 bind_exporter_port: 9119
 mysql_exporter_port: 9104
 node_exporter_port: 9100
+
+agama_containers:
+  - 1
+  - 2
+  - 3

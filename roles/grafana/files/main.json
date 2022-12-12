@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -614,7 +614,23 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "color": "semi-dark-yellow",
+                  "index": 0,
+                  "text": "Backup"
+                },
+                "2": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "Master"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -657,19 +673,10 @@
         {
           "datasource": "Prometheus",
           "editorMode": "builder",
-          "expr": "keepalived_vrrp_state{instance=\"alekseibahmatov-1:9165\"}",
-          "legendFormat": "alekseibahmatov-1",
+          "expr": "keepalived_vrrp_state",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": "Prometheus",
-          "editorMode": "builder",
-          "expr": "keepalived_vrrp_state{instance=\"alekseibahmatov-2:9165\"}",
-          "hide": false,
-          "legendFormat": "alekseibahmatov-1",
-          "range": true,
-          "refId": "B"
         }
       ],
       "title": "Keepalived vrrp state",
@@ -921,37 +928,10 @@
         {
           "datasource": "Prometheus",
           "editorMode": "builder",
-          "expr": "haproxy_server_up{instance=\"alekseibahmatov-1:9101\", server=\"agama-1\"}",
-          "legendFormat": "agama-1",
+          "expr": "haproxy_server_up{instance=\"alekseibahmatov-1:9101\"}",
+          "legendFormat": "{{server}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": "Prometheus",
-          "editorMode": "builder",
-          "expr": "haproxy_server_up{instance=\"alekseibahmatov-1:9101\", server=\"agama-2\"}",
-          "hide": false,
-          "legendFormat": "agama-2",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": "Prometheus",
-          "editorMode": "builder",
-          "expr": "haproxy_server_up{instance=\"alekseibahmatov-2:9101\", server=\"agama-3\"}",
-          "hide": false,
-          "legendFormat": "agama-3",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": "Prometheus",
-          "editorMode": "builder",
-          "expr": "haproxy_server_up{instance=\"alekseibahmatov-2:9101\", server=\"agama-4\"}",
-          "hide": false,
-          "legendFormat": "agama-4",
-          "range": true,
-          "refId": "D"
         }
       ],
       "title": "Backend Status",
@@ -1540,6 +1520,6 @@
   "timezone": "",
   "title": "Main Dashboard",
   "uid": "Q1hVnJI4k",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

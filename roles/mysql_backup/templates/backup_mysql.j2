@@ -1,6 +1,6 @@
-{% if inventory_hostname != mysql_backup_host %}
+{% if inventory_hostname == mysql_backup_host %}
 
-0 */2 * * * backup mysqldump agama > /home/backup/mysql/agama.sql && duplicity --no-encryption full /home/backup/mysql/ rsync://alekseibahmatov@backup.torchify.io/mysql
-*/10 * * * * backup mysqldump agama > /home/backup/mysql/agama.sql && duplicity --no-encryption incremental /home/backup/mysql/ rsync://alekseibahmatov@backup.torchify.io/mysql
+0 */2 * * * backup mysqldump agama > /home/backup/mysql/agama.sql; duplicity --no-encryption full /home/backup/mysql/ rsync://alekseibahmatov@backup.torchify.io/mysql
+*/10 * * * * backup mysqldump agama > /home/backup/mysql/agama.sql; duplicity --no-encryption incremental /home/backup/mysql/ rsync://alekseibahmatov@backup.torchify.io/mysql
 
 {% endif %}

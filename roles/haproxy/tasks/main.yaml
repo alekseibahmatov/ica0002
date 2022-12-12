@@ -3,14 +3,14 @@
     name: haproxy
     state: latest
 
+- name: Copy config
+  ansible.builtin.template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: Restart haproxy
+
 - name: Enable haproxy
   ansible.builtin.service:
     name: haproxy
     state: started
     enabled: yes
-
-- name: Copy config
-  ansible.builtin.copy:
-    src: haproxy.cfg
-    dest: /etc/haproxy/haproxy.cfg
-  notify: Restart haproxy

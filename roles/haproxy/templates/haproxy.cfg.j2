@@ -37,7 +37,7 @@ listen my_ha_frontend
     bind :88
 	stats enable
     stats uri /stats
-    server agama-1 alekseibahmatov-1:8001 check
-    server agama-2 alekseibahmatov-1:8002 check
-    server agama-3 alekseibahmatov-2:8001 check
-    server agama-4 alekseibahmatov-2:8002 check
+    {% for item in agama_containers %}
+    server agama-{{ item }} alekseibahmatov-1:{{ agama_port + item }} check
+    server agama-{{ (agama_containers | count) + item }} alekseibahmatov-2:{{ agama_port + item }} check
+    {% endfor %}

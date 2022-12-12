@@ -7,7 +7,7 @@ vrrp_script check_haproxy {
 vrrp_instance XXX {
     interface ens3
     virtual_router_id {{ router_id }}
-    priority {{ 1 if inventory_hostname == 'alekseibahmatov-1' else 0 }}
+    priority {{ 101 if inventory_hostname == 'alekseibahmatov-2' else 100 }}
     advert_int 1
     virtual_ipaddress {
         {% set ip_address = hostvars['alekseibahmatov-1']['ansible_default_ipv4']['address'].split('.') %}
